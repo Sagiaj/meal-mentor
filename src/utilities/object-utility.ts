@@ -1,1 +1,0 @@
-export const isEmpty = (o: any) => o ? Object.keys(o).length === 0 : !(!!o);
