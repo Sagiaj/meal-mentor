@@ -1,0 +1,1 @@
+{"version":3,"file":"user-progress-timeline.js","sourceRoot":"","sources":["user-progress-timeline.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,iBAAiB,CAAC;AAE/C,MAAM,OAAO,oBAAoB;IAG/B,YAAY,IAAS;QACnB,IAAI,IAAI,EAAE;YACR,IAAI,CAAC,gBAAgB,GAAG,YAAY,CAAC,iBAAiB,CAAC,IAAI,CAAC,CAAC;SAC9D;IACH,CAAC;CACF"}
