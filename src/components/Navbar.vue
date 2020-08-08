@@ -9,12 +9,14 @@
       v-if="user && $vuetify.breakpoint.mdAndUp"
     >
       <v-list-item class="px-2">
-        <v-list-item-avatar @click.native="!mini ? goToHome() : null">
-          <v-img src="../assets/logo.png" v-if="!mini"></v-img>
-          <v-btn fab text icon v-else>
-            <v-icon color="secondary">mdi-menu</v-icon>
-          </v-btn>
-        </v-list-item-avatar>
+        <router-link to="">
+          <v-list-item-avatar @click.native="!mini ? goTo('/') : null">
+            <v-img src="../assets/logo.png" v-if="!mini"></v-img>
+            <v-btn fab text icon v-else>
+              <v-icon color="secondary">mdi-menu</v-icon>
+            </v-btn>
+          </v-list-item-avatar>
+        </router-link>
         <v-list-item-title>Meal Mentor</v-list-item-title>
         <v-btn icon @click.stop="mini = !mini">
           <v-icon>mdi-chevron-left</v-icon>
@@ -44,7 +46,7 @@
       </v-app-bar>
       <v-navigation-drawer v-model="drawer" temporary app color="primary">
         <v-list-item class="px-2">
-          <v-list-item-avatar @click="goToHome">
+          <v-list-item-avatar @click="goTo('/')">
             <v-img src="../assets/logo.png"></v-img>
           </v-list-item-avatar>
           <v-list-item-title>Meal Mentor</v-list-item-title>
@@ -83,6 +85,18 @@ export default {
   },
   methods: {
     ...mapActions(["authUserLogout"]),
+    goTo(route) {
+      if (route !== this.$route.fullPath) {
+        switch(route) {
+          case "/":
+            return this.goToHome();
+          case "/progress":
+            return this.goToTimeLine();
+          default:
+            break;
+        }
+      }
+    },
     goToAuthView() {
       this.$router.push({
         path: "/auth"
@@ -117,7 +131,7 @@ export default {
         {
           icon: "mdi-trending-up",
           title: "View your progress",
-          action: this.goToTimeLine
+          action: () => this.goTo("/progress")
         },
         {
           icon: "logout",

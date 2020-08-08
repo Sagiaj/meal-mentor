@@ -14,6 +14,8 @@
             <v-row wrap>
               <v-col>
                 <v-text-field
+                  name="age"
+                  type="number"
                   label="Age"
                   v-model="userStats.age"
                 ></v-text-field>
@@ -27,12 +29,16 @@
               </v-col>
               <v-col>
                 <v-text-field
+                  name="weight"
+                  type="number"
                   label="Weight(KG)"
                   v-model="userStats.weight"
                 ></v-text-field>
               </v-col>
               <v-col>
                 <v-text-field
+                  name="height"
+                  type="number"
                   label="Height(cm)"
                   v-model="userStats.height"
                 ></v-text-field>

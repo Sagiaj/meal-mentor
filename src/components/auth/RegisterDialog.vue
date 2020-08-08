@@ -31,6 +31,7 @@
               </v-col>
               <v-col xs="12">
                 <v-text-field
+                  name="email"
                   type="email"
                   v-model="email"
                   :rules="emailRules"
@@ -40,6 +41,7 @@
               </v-col>
               <v-col xs="12">
                 <v-text-field
+                  name="password"
                   v-model="password"
                   :rules="passwordRules"
                   label="*Password"
@@ -62,7 +64,7 @@
         <v-btn @click.native="cancelDialog()" text>Cancel</v-btn>
       </v-card-actions>
       <v-row wrap v-else justify="center">
-        <v-col xs="12">
+        <v-col xs="12" align="center">
           <v-progress-circular
             :size="50"
             color="primary"

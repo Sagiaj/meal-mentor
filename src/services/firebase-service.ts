@@ -1,8 +1,8 @@
-import db from "../config/firebase/index";
+import db from "@/plugins/firebase/index";
 import { firestore } from "firebase/app";
-import firebase from "../config/firebase/firebase";
+import firebase from "@/plugins/firebase/firebase";
 import { FirebaseUser } from "../models/firebase-user";
-import { Collections } from "@/config/firebase/firebase-collections";
+import { Collections } from "@/plugins/firebase/firebase-collections";
 import { UserCredentials } from "@/models/user-credentials";
 import { UserSetupContent } from "@/models/user-setup-content";
 import { isEmpty } from "@/utilities/object-utility";

@@ -1,46 +1,45 @@
 <template>
-  <v-app>
-    <!-- <v-app-bar app color="primary"> -->
-    <!-- <v-toolbar-title>
-        <v-avatar size="50px">
-          <img src="./assets/logo.png" alt="alt" @click="goToHome" />
-        </v-avatar>
-        <Navbar />
-      </v-toolbar-title> -->
-    <!-- <v-spacer></v-spacer>
-    </v-app-bar> -->
+  <v-app v-if="authStateFinished" style="background-color: var(--v-background-base);">
     <Navbar />
-    <v-content>
-      <transition name="fade" mode="out-in">
-        <router-view v-if="authStateFinished" />
-        <AuthLoader v-else />
-      </transition>
-    </v-content>
+    <v-container grid-list-lg>
+      <v-main>
+        <transition name="fade" mode="out-in">
+          <router-view class="maximal-view"/>
+        </transition>
+      </v-main>
+      <ErrorPopup />
+    </v-container>
+  </v-app>
+  <v-app light v-else>
+    <v-container grid-list-xs>
+      <AuthLoader />
+    </v-container>
   </v-app>
 </template>
 
-<script>
-import Navbar from "./components/Navbar.vue";
-import AuthLoader from "@/components/auth/AuthLoader.vue";
-import { mapGetters } from "vuex";
+<script lang="ts">
+import Vue from 'vue';
+import Navbar from '@/components/Navbar.vue';
+import AuthLoader from '@/components/auth/AuthLoader.vue';
+import { mapGetters } from 'vuex';
+import ErrorPopup from "@/components/reuse/ErrorPopup.vue";
 
-export default {
-  name: "App",
-  components: { Navbar, AuthLoader },
+export default Vue.extend({
+  name: 'App',
+  components: {
+    Navbar,
+    AuthLoader,
+    ErrorPopup
+  },
   computed: {
-    ...mapGetters(["authStateFinished"])
+    ...mapGetters([
+      'authStateFinished'
+    ])
   },
-  methods: {
-    goToHome() {
-      this.$router.push({
-        path: "/"
-      });
-    }
-  },
-  data() {
-    return {};
-  }
-};
+  data: () => ({
+    
+  }),
+});
 </script>
 
 <style>
@@ -55,6 +54,6 @@ export default {
 }
 .fade-enter,
 .fade-leave-active {
-  opacity: 0;
+  opacity: 0
 }
 </style>

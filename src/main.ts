@@ -1,8 +1,9 @@
+import "@/registerServiceWorker";
 import Vue from "vue";
 import store from "./store";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
-import firebase from "./config/firebase/firebase";
+import firebase from "@/plugins/firebase/firebase";
 import App from "./App.vue";
 import { mapActions } from "vuex";
 

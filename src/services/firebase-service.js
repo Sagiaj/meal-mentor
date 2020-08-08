@@ -1,5 +1,5 @@
-import db from "../config/firebase/index";
-import firebase from "../config/firebase/firebase";
+import db from "@/plugins/firebase/index";
+import firebase from "@/plugins/firebase/firebase";
 import { UserCredentials } from "@/models/user-credentials";
 import { UserSetupContent } from "@/models/user-setup-content";
 import { isEmpty } from "@/utilities/object-utility";

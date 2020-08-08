@@ -1,54 +1,55 @@
-import Vue from "vue";
-import store from "@/store/index";
 import VueRouter from "vue-router";
-import "firebase/auth";
-import firebase from "firebase/app";
-import MainView from "@/views/MainView.vue";
-import AuthView from "@/views/AuthView.vue";
-import SetupView from "@/views/SetupView.vue";
-import MealPlannerView from "@/views/MealPlannerView.vue";
-import ProgressView from "@/views/ProgressView.vue";
-Vue.use(VueRouter);
-const router = new VueRouter({
-    routes: [
-        {
-            path: "/",
-            name: "MainView",
-            component: MainView,
-            meta: {
-                requiresSetup: true
-            }
-        },
-        {
-            path: "/auth",
-            name: "AuthView",
-            component: AuthView
-        },
-        {
-            path: "/setup",
-            name: "SetupView",
-            component: SetupView,
-            meta: {
-                requiresAuth: true
-            }
-        },
-        {
-            path: "/meal",
-            name: "MealPlannerView",
-            component: MealPlannerView,
-            meta: {
-                requiresSetup: true
-            }
-        },
-        {
-            path: "/progress",
-            name: "ProgressView",
-            component: ProgressView,
-            meta: {
-                requiresSetup: true
-            }
+import Vue from "vue";
+import Router from "vue-router";
+import firebase from 'firebase/app';
+import 'firebase/auth';
+// import MainView from "./views/MainView.vue";
+// import AuthView from './views/AuthView.vue';
+// import SetupView from './views/SetupView.vue';
+// import MealPlannerView from './views/MealPlannerView.vue';
+import store from "../store";
+Vue.use(Router);
+const routes = [
+    {
+        path: "/",
+        name: "MainView",
+        component: () => import("@/views/MainView.vue"),
+        meta: {
+            requiresSetup: true
         }
-    ]
+    },
+    {
+        path: "/auth",
+        name: "AuthView",
+        component: () => import("@/views/AuthView.vue")
+    },
+    {
+        path: "/setup",
+        name: "SetupView",
+        component: () => import("@/views/SetupView.vue"),
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: "/meal",
+        name: "MealPlannerView",
+        component: () => import("@/views/MealPlannerView.vue"),
+        meta: {
+            requiresSetup: true
+        }
+    },
+    {
+        path: "/progress",
+        name: "ProgressView",
+        component: () => import("@/views/ProgressView.vue"),
+        meta: {
+            requiresSetup: true
+        }
+    }
+];
+const router = new VueRouter({
+    routes
 });
 router.beforeEach(async (to, from, next) => {
     let { authStateFinished } = store.getters;
@@ -61,7 +62,7 @@ router.beforeEach(async (to, from, next) => {
     if (to.matched.some((record) => record.meta.requiresAuth && !currentUser)) {
         if (!currentUser) {
             next({
-                path: "/auth"
+                path: '/auth'
             });
         }
         else {
@@ -69,9 +70,10 @@ router.beforeEach(async (to, from, next) => {
         }
     }
     else {
-        if (to.matched.some((record) => record.meta.requiresSetup && !userSetupContent)) {
+        if (to.matched.some(record => record.meta.requiresSetup && !userSetupContent)) {
+            console.log('here in userSetupContent:', userSetupContent, JSON.stringify(store.getters, null, 4));
             next({
-                path: "/setup"
+                path: '/setup'
             });
         }
         else {
