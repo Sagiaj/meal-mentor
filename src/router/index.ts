@@ -1,4 +1,4 @@
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { RouteConfig, RouteRecord } from "vue-router";
 import Vue from "vue";
 import Router from "vue-router";
 import firebase from 'firebase/app';
@@ -10,6 +10,19 @@ import 'firebase/auth';
 import store from "../store";
 
 Vue.use(Router);
+
+export enum RouteRecordMetas {
+  requiresAuth = "requiresAuth",
+  requiresSetup = "requiresSetup"
+};
+
+export type MealMentorRouteRecordMeta = {
+  [P in keyof typeof RouteRecordMetas]: any;
+};
+
+export interface MealMentorRouteRecord extends RouteRecord {
+  meta: MealMentorRouteRecordMeta;
+}
 
 const routes: Array<RouteConfig> = [
   {
@@ -63,7 +76,7 @@ router.beforeEach(async (to, from, next) => {
   }
   let { currentUser } = await firebase.auth();
   let { userSetupContent } = store.getters;
-  if (to.matched.some((record) => record.meta.requiresAuth && !currentUser)) {
+  if (to.matched.some((record: MealMentorRouteRecord) => record.meta.requiresAuth && !currentUser)) {
     if (!currentUser) {
       next({
         path: '/auth'
